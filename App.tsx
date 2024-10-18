@@ -5,8 +5,11 @@
  * @format
  */
 
-import React from 'react';
+import React, { startTransition, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
+import { NativeModules, Alert, Button } from 'react-native';
+
+const { ClearQuoteModule } = NativeModules;
 import {
   SafeAreaView,
   ScrollView,
@@ -62,57 +65,49 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    // Call the SDK initialization when the app loads
+    initializeSDK();
+  }, []);
+
+  const initializeSDK = async () => {
+    try {
+      const result = await ClearQuoteModule.initializeCQSDK("YOUR_SDK_KEY_HERE");
+      // Alert.alert('Success', result);  // Show success alert with the result
+    } catch (error) {
+      Alert.alert('Error', "error");  // Show error alert
+    }
+  };
+
+  const startInspection = async () => {
+    try {
+      const result = await ClearQuoteModule.startInspection(JSON.stringify({ name: "sample" }));
+      // Alert.alert('Success', result);  // Show success alert with the result
+    } catch (error) {
+      Alert.alert('Error', "error");  // Show error alert
+    }
+  };
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      <View style={styles.buttonContainer}>
+        <Button title="Start inspection" onPress={startInspection} />
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  buttonContainer: {
+    margin: 20,
   },
 });
+
 
 export default App;
