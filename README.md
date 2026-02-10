@@ -4,7 +4,7 @@
 
 It is a minimal sample app that shows the full integration path: adding the CQ Android SDK to the native layer, exposing it to JavaScript via a **Kotlin native module**, and calling **initialize** and **start inspection** from your React Native UI. Use it as a step-by-step reference when adding ClearQuote vehicle inspection to your own React Native (Android) project.
 
-> 📌 **Note:** All integration code lives in the **CQ SDK Integration** commit. The key files and snippets below map directly to that implementation.
+> 📌 **Note:** All integration code lives in the [**CQ SDK Integration** commit](https://github.com/RajappaXenon/react-native-sample-with-cq-sdk/commit/6c5acfb). The key files and snippets below map directly to that implementation.
 
 > 📖 **Full integration document:** For complete SDK method parameters, responses, and detailed integration steps (including Java and Kotlin), see the **[CQ Native Android SDK integration guide](https://docs.google.com/document/d/1qaoIRasNhM7pLG6hKX2aLnKaZr35R-_8GSMnZpDO9Sw/edit?usp=sharing)**.
 
